@@ -1,85 +1,117 @@
-<script src="http://static.fusioncharts.com/code/latest/fusioncharts.js"></script>
-<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-<script src="https://code.highcharts.com/highcharts.js"></script>
-<script src="https://code.highcharts.com/modules/exporting.js"></script>
-<script src="https://code.highcharts.com/modules/export-data.js"></script>
-<script src="https://code.highcharts.com/modules/exporting.js"></script>
-<script src="https://code.highcharts.com/modules/export-data.js"></script>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <title>BBT</title>
+    <script src="http://static.fusioncharts.com/code/latest/fusioncharts.js"></script>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
 
-<script>
-    function getCol(matrix, col){
-        var column = [];
-        for(var i=0; i<matrix.length; i++){
-            var dateToTimestamp = (parseInt(matrix[i]['_cre1l'].replace(",",""))-25569)*24*3600-8*3600;
-            column.push( Array(dateToTimestamp*1000, parseFloat(matrix[i][col])) );
-       }
-       return column;
-    }
-var url = "https://spreadsheets.google.com/feeds/list/1-Y5L87Ubd8na-ku4IcVCXMiqPRA6QQQeYlB9MLwaqzw/od6/public/basic?alt=json";
-var parsedData = [];
-$.get({
-  url: url,
-  success: function(response) {
-    console.log(response);
-    var data = response.feed.entry,
-    len = data.length,
-    i = 0,
-    j = 0,
-    tmp;
-    
-
-    for (i = 0; i < len; i++) {
-        let tmp = data[i].content.$t;
-        let t = []
-        tmp = tmp.split(", ");
-        if (tmp.length > 1){
-            for (j = 0; j < tmp.length; j++){
-                t[tmp[j].split(": ")[0]] = tmp[j].split(": ")[1];
-            }
-            parsedData.push(t);
+    <script>
+        function getCol(matrix, col){
+            var column = [];
+            for(var i=0; i<matrix.length; i++){
+                // var dateToTimestamp = (parseInt(matrix[i]['_cre1l'].replace(",",""))-25569)*24*3600-8*3600;
+                // column.push( Array(dateToTimestamp*1000, parseFloat(matrix[i][col])) );
+                column.push( Array(matrix[i]['_cre1l'], parseFloat(matrix[i][col])) );
         }
-    }
-    // console.log(parsedData);
-    console.log( getCol(parsedData, "melflyu"));
-    Highcharts.chart('container', {
-        chart: {
-            zoomType: 'x'
-        },
-        title: {
-            text: 'Basal body temperature'
-        },
-        subtitle: {
-            text: document.ontouchstart === undefined ?
-                    'Click and drag in the plot area to zoom in' : 'Pinch the chart to zoom in'
-        },
-        xAxis: {
-            type: 'datetime'
-        },
-        yAxis: {
-            title: {
-                text: 'Celsius'
-            }
-        },
-        legend: {
-            layout: 'vertical',
-            align: 'right',
-            verticalAlign: 'middle'
-        },
-        series: [{
-            type: 'line',
-            name: 'sachiko',
-            color: "#99ebff",
-            data: getCol(parsedData, "sachiko")
-        },{
-            type: 'line',
-            name: 'melflyu',
-            color: "#ffb3ff",
-            data: getCol(parsedData, "melflyu")
-        }]
-    });
-  }
-});
-</script>
+        return column;
+        }
+    var url = "https://spreadsheets.google.com/feeds/list/1-Y5L87Ubd8na-ku4IcVCXMiqPRA6QQQeYlB9MLwaqzw/od6/public/basic?alt=json";
+    var parsedData = [];
+    var calendarData = [];
+    $.get({
+    url: url,
+    success: function(response) {
+        // console.log(response);
+        var data = response.feed.entry,
+        len = data.length,
+        i = 0,
+        j = 0,
+        tmp;
 
-<div id="container" style="min-width: 300px; height: 400px; margin: 0 auto"></div>
-<iframe align="middle" src="https://calendar.google.com/calendar/embed?src=m886v0k8oqn6g2rg7m9d1o4ats%40group.calendar.google.com&ctz=Asia%2FTaipei" style="border: 0" width="100%" height="600px" frameborder="0" scrolling="no"></iframe>
+        for (i = 0; i < len; i++) {
+            let tmp = data[i].content.$t;
+            let t = []
+            tmp = tmp.split(", ");
+            if (tmp.length > 1){
+                for (j = 0; j < tmp.length; j++){
+                  if(tmp[j].split(": ")[0] == "_cre1l"){
+                    t[tmp[j].split(": ")[0]] = ((parseInt(tmp[j].split(": ")[1].replace(",",""))-25569)*24*3600-8*3600)*1000;
+                  }else{
+                    t[tmp[j].split(": ")[0]] = tmp[j].split(": ")[1];
+                  }
+                }
+                var calendarDate = new Date(t['_cre1l']);
+                calendarDate = calendarDate.getFullYear() + "/" + (calendarDate.getMonth()+1) + "/" + calendarDate.getDate();
+                calendarData.push(
+                  {
+                    date: calendarDate,
+                    title: 'sachiko',
+                    desc: t['sachiko']
+                  }
+                );
+                calendarData.push(
+                  {
+                    date: calendarDate,
+                    title: 'melflyu',
+                    desc: t['melflyu']
+                  }
+                );
+                parsedData.push(t);
+            }
+        }
+        // console.log(parsedData);
+        console.log( parsedData);
+        console.log( calendarData);
+        Highcharts.chart('container', {
+            chart: {
+                zoomType: 'x'
+            },
+            title: {
+                text: 'Basal body temperature'
+            },
+            subtitle: {
+                text: document.ontouchstart === undefined ?
+                        'Click and drag in the plot area to zoom in' : 'Pinch the chart to zoom in'
+            },
+            xAxis: {
+                type: 'datetime'
+            },
+            yAxis: {
+                title: {
+                    text: 'Celsius'
+                }
+            },
+            legend: {
+                layout: 'vertical',
+                align: 'right',
+                verticalAlign: 'middle'
+            },
+            series: [{
+                type: 'line',
+                name: 'sachiko',
+                color: "#99ebff",
+                data: getCol(parsedData, "sachiko")
+            },{
+                type: 'line',
+                name: 'melflyu',
+                color: "#ffb3ff",
+                data: getCol(parsedData, "melflyu")
+            }]
+        });
+    }
+    });
+    </script>
+  </head>
+  <body>
+    <div id="container" style="min-width: 300px; height: 400px; margin: 0 auto"></div>
+    <div id="app"></div>
+    <script src="./dist/index.js"></script>
+  </body>
+</html>
