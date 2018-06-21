@@ -18,7 +18,7 @@
             for(var i=0; i<matrix.length; i++){
                 // var dateToTimestamp = (parseInt(matrix[i]['_cre1l'].replace(",",""))-25569)*24*3600-8*3600;
                 // column.push( Array(dateToTimestamp*1000, parseFloat(matrix[i][col])) );
-                column.push( Array(matrix[i]['_cre1l'], parseFloat(matrix[i][col])) );
+                column.push( Array(matrix[i]['_cre1l']+8*3600000, parseFloat(matrix[i][col])) );
         }
         return column;
         }
