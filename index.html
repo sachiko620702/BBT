@@ -49,14 +49,12 @@
                 }
                 var calendarDate = new Date(t['_cre1l']);
                 calendarDate = calendarDate.getFullYear() + "/" + (calendarDate.getMonth()+1) + "/" + calendarDate.getDate();
-                console.log(t['sachiko']);
-                console.log(t['melflyu']);
                 if (typeof t['sachiko'] != 'undefined'){
                     calendarData.push(
                     {
                         date: calendarDate,
-                        title: 'melflyu',
-                        desc: t['melflyu']
+                        title: 'sachiko',
+                        desc: t['sachiko']
                     }
                     );
                 }
