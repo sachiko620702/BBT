@@ -6,55 +6,46 @@
 	width	: 100%;
 	height	: 500px;
 }			
-ul, li {
-	margin: 0;
-	padding: 0;
-	list-style: none;
+
+ul {
+   margin: 0;
+   padding: 0;
+   position: relative;
+   text-align: left;
 }
-.abgne_tab {
-	clear: left;
-	width: 90%;
-	margin: 10px 0;
+ul li.tab-menu {
+   list-style: none;
+   display: inline-block;
 }
-ul.tabs {
-	width: 100%;
-	height: 32px;
-	border-bottom: 1px solid #999;
-	border-left: 1px solid #999;
+li.tab-menu {
+   display: block;
+   background-color: #1b91ab;
+   font-size: 12px;
+   font-family: Arial,Helvetica,sans-serif;
+   color: #fff;
+   padding: 5px 10px;
+   text-shadow: 1px 1px 0px #1b91ab;
+   font-weight: bold;
+   text-decoration: none;
+   border: solid 1px #1b91ab;
+   border-bottom: 0;
+   border-radius: 3px 3px 0 0;
 }
-ul.tabs li {
-	float: left;
-	height: 31px;
-	line-height: 31px;
-	overflow: hidden;
-	position: relative;
-	margin-bottom: -1px;	/* 讓 li 往下移來遮住 ul 的部份 border-bottom */
-	border: 1px solid #999;
-	border-left: none;
-	background: #e1e1e1;
+li.tab-menu.active {
+   background-color: #fff;
+   text-shadow: 1px 1px 0px #ffffff;
+   border: solid 1px #1b91ab;
+   color: #6b6b6b;
+   border-bottom: 0;
 }
-ul.tabs li a {
-	display: block;
-	padding: 0 20px;
-	color: #000;
-	border: 1px solid #fff;
-	text-decoration: none;
+.tabs-container {
+   border: solid 1px #1b91ab;
+   padding: 10px;
+   margin-top: -1px;
+   background-color: #fff;
 }
-ul.tabs li a:hover {
-	background: #ccc;
+.tabs-panel {
+   display: none;
+   min-height: 150px;
+   overflow: auto;
 }
-ul.tabs li.active  {
-	background: #fff;
-	border-bottom: 1px solid#fff;
-}
-ul.tabs li.active a:hover {
-	background: #fff;
-}
-div.tab_container {
-	clear: left;
-	width: 100%;
-	border: 1px solid #999;
-	border-top: none;
-	background: #fff;
-}
-					
