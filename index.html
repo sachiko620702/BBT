@@ -6,24 +6,24 @@
     <title>BBT</title>
     <script src="https://static.fusioncharts.com/code/latest/fusioncharts.js"></script>
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-    <script src="https://code.highcharts.com/highcharts.js"></script>
-    <script src="https://code.highcharts.com/modules/exporting.js"></script>
-    <script src="https://code.highcharts.com/modules/export-data.js"></script>
-    <script src="https://code.highcharts.com/modules/exporting.js"></script>
-    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://www.amcharts.com/lib/3/amcharts.js"></script>
+    <script src="https://www.amcharts.com/lib/3/serial.js"></script>
+    <script src="https://www.amcharts.com/lib/3/plugins/export/export.min.js"></script>
+    <link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
+    <script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
+    <link rel="stylesheet" href="./css/style.css">
 
     <script>
         function getCol(matrix, col){
             var column = [];
             for(var i=0; i<matrix.length; i++){
-                // var dateToTimestamp = (parseInt(matrix[i]['_cre1l'].replace(",",""))-25569)*24*3600-8*3600;
-                // column.push( Array(dateToTimestamp*1000, parseFloat(matrix[i][col])) );
                 column.push( Array(matrix[i]['_cre1l']+8*3600000, parseFloat(matrix[i][col])) );
         }
         return column;
         }
     var url = "https://spreadsheets.google.com/feeds/list/1-Y5L87Ubd8na-ku4IcVCXMiqPRA6QQQeYlB9MLwaqzw/od6/public/basic?alt=json";
-    var parsedData = [];
+    var melflyuData = [];
+    var sachikoData = [];
     var calendarData = [];
     $.get({
     url: url,
@@ -48,6 +48,7 @@
                   }
                 }
                 var calendarDate = new Date(t['_cre1l']);
+                chartDate = calendarDate.toISOString().slice(0,10);
                 calendarDate = calendarDate.getFullYear() + "/" + (calendarDate.getMonth()+1) + "/" + calendarDate.getDate();
                 if (typeof t['sachiko'] != 'undefined'){
                     calendarData.push(
@@ -56,6 +57,13 @@
                         title: 'sachiko',
                         desc: t['sachiko']
                     }
+                    );
+                    sachikoData.push(
+                        {
+                            date: chartDate,
+                            Celsius: parseFloat(t['sachiko']),
+                            Demarcation: parseFloat(t['sachikodemarcation'])
+                        }
                     );
                 }
                 if (typeof t['melflyu'] != 'undefined'){
@@ -66,59 +74,141 @@
                         desc: t['melflyu']
                     }
                     );
+                    melflyuData.push(
+                        {
+                            date: chartDate,
+                            Celsius: parseFloat(t['melflyu']),
+                            Demarcation: parseFloat(t['melflyudemarcation'])
+                        }
+                    );
                 }
-                parsedData.push(t);
             }
         }
-        // console.log(parsedData);
-        console.log( parsedData);
+        console.log( melflyuData);
+        console.log( sachikoData);
         console.log( calendarData);
-        Highcharts.chart('container', {
-            chart: {
-                zoomType: 'x'
+        var melflyuChart = AmCharts.makeChart("melflyuChart", {
+            "hideCredits":true,
+            "theme": "light",
+            "type": "serial",
+            "dataProvider": melflyuData,
+            "valueAxes": [ {
+                "inside": true,
+                "axisAlpha": 0,
+                "guides": [{
+                    "dashLength": 6,
+                    "inside": true,
+                    "label": "高低溫分界",
+                    "lineAlpha": 1,
+                    "value": melflyuData[0]['Demarcation']
+                }],
+            } ],
+            "graphs": [ {
+                "id": "g1",
+                "balloonText": "<div style='margin:5px; font-size:19px;'><span style='font-size:13px;'>[[category]]</span><br>[[value]]</div>",
+                "bullet": "round",
+                "bulletBorderAlpha": 1,
+                "bulletBorderColor": "#FFFFFF",
+                "hideBulletsCount": 50,
+                "lineThickness": 2,
+                "lineColor": "#fdd400",
+                "negativeLineColor": "#67b7dc",
+                "negativeBase": melflyuData[0]['Demarcation'],
+                "valueField": "Celsius"
+            } ],
+            "chartScrollbar": {
+
             },
-            title: {
-                text: 'Basal body temperature'
+            "chartCursor": {},
+            "categoryField": "date",
+            "categoryAxis": {
+                "parseDates": true,
+                "axisAlpha": 0,
+                "minHorizontalGap": 55
             },
-            credits: {
-                enabled: false
+            "export": {
+                "enabled": true
+            }
+        } );
+        var sachikoChart = AmCharts.makeChart("sachikoChart", {
+            "hideCredits":true,
+            "theme": "light",
+            "type": "serial",
+            "dataProvider": sachikoData,
+            "valueAxes": [ {
+                "inside": true,
+                "axisAlpha": 0,
+                "guides": [{
+                    "dashLength": 6,
+                    "inside": true,
+                    "label": "高低溫分界",
+                    "lineAlpha": 1,
+                    "value": sachikoData[0]['Demarcation']
+                }],
+            } ],
+            "graphs": [ {
+                "id": "g1",
+                "balloonText": "<div style='margin:5px; font-size:19px;'><span style='font-size:13px;'>[[category]]</span><br>[[value]]</div>",
+                "bullet": "round",
+                "bulletBorderAlpha": 1,
+                "bulletBorderColor": "#FFFFFF",
+                "hideBulletsCount": 50,
+                "lineThickness": 2,
+                "lineColor": "#fdd400",
+                "negativeLineColor": "#67b7dc",
+                "negativeBase": sachikoData[0]['Demarcation'],
+                "valueField": "Celsius"
+            } ],
+            "chartScrollbar": {
+
             },
-            subtitle: {
-                text: document.ontouchstart === undefined ?
-                        'Click and drag in the plot area to zoom in' : 'Pinch the chart to zoom in'
+            "chartCursor": {},
+            "categoryField": "date",
+            "categoryAxis": {
+                "parseDates": true,
+                "axisAlpha": 0,
+                "minHorizontalGap": 55
             },
-            xAxis: {
-                type: 'datetime'
-            },
-            yAxis: {
-                title: {
-                    text: 'Celsius'
-                }
-            },
-            legend: {
-                layout: 'vertical',
-                align: 'right',
-                verticalAlign: 'middle'
-            },
-            series: [{
-                type: 'line',
-                name: 'sachiko',
-                color: "#99ebff",
-                data: getCol(parsedData, "sachiko")
-            },{
-                type: 'line',
-                name: 'melflyu',
-                color: "#ffb3ff",
-                data: getCol(parsedData, "melflyu")
-            }]
-        });
+            "export": {
+                "enabled": true
+            }
+        } );
     }
+    });
+    $(function(){
+        var _showTab = 0;
+        var $defaultLi = $('ul.tabs li').eq(_showTab).addClass('active');
+        $($defaultLi.find('a').attr('href')).siblings().hide();
+    
+        $('ul.tabs li').click(function() {
+            var $this = $(this),
+                _clickTab = $this.find('a').attr('href');
+            $this.addClass('active').siblings('.active').removeClass('active');
+            $(_clickTab).stop(false, true).fadeIn().siblings().hide();
+    
+            return false;
+        }).find('a').focus(function(){
+            this.blur();
+        });
     });
     </script>
   </head>
   <body>
-    <div id="container" style="min-width: 300px; height: 400px; margin: 0 auto"></div>
-    <div id="app"></div>
+    <!-- <div id="container" style="min-width: 300px; height: 400px; margin: 0 auto"></div> -->
+    <!-- <div id="app"></div> -->
+    <div class="abgne_tab">
+		<ul class="tabs">
+			<li><a href="#app">日曆總表</a></li>
+            <li><a href="#sachikoChart">Sachiko BBT Line Chart</a></li>
+            <li><a href="#melflyuChart">Melflyu BBT Line Chart</a></li>
+		</ul>
+ 
+		<div class="tab_container">
+            <div id="app" class="tab_content"></div>
+			<div id="sachikoChart" class="tab_content"></div>
+			<div id="melflyuChart" class="tab_content"></div>
+		</div>
+	</div>
     <script src="./dist/index.js"></script>
   </body>
 </html>
