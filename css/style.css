@@ -49,3 +49,5 @@ li.tab-menu.active {
    min-height: 150px;
    overflow: auto;
 }
+
+.ui-datepicker { width: 17em; padding: .2em .2em 0; display: none; font-size: 62.5%; }
