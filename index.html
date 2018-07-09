@@ -234,6 +234,7 @@
             if(status){
                 $.ajax({
                     type: "get",
+                    crossDomain: true,
                     url: "https://script.googleusercontent.com/macros/echo?user_content_key=GwYzXaIuAm7ivhkMp8CiVc7RgnkCivj6bRkOG9wB2cyH8StWD4YVZQNHQQg2fXvEQ6_Dbi-Z3CDocA4abs4WwQENUgfh-jiIm5_BxDlH2jW0nuo2oDemN9CCS2h10ox_1xSncGQajx_ryfhECjZEnJ-qS1FkN1o89AG5dbbNA_2Tsa5mWiJalFSe4oXcrcnks-zcn_xTC6pA_zgmFIk-64v8SLrabKvp&lib=M8byxMDdzNl3BoXnuoQ405uf3JSpEiUC4",
                     data: data,
                     dataType: "JSON",
