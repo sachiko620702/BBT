@@ -7,6 +7,7 @@
     <script src="https://static.fusioncharts.com/code/latest/fusioncharts.js"></script>
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
     <script src="https://www.amcharts.com/lib/3/amcharts.js"></script>
     <script src="https://www.amcharts.com/lib/3/serial.js"></script>
     <script src="https://www.amcharts.com/lib/3/plugins/export/export.min.js"></script>
@@ -213,7 +214,8 @@
                     <div id="sachiko" class="tab_content">
                         <p>
                             <form>
-                                本日體溫：
+                                <input type="text" id="sachikoDatepicker" size="30">
+                                體溫：
                                 <input type="text" id="sachikoTemperature" class="form-control">
                                 <button type="button" onclick = 'send("sachiko", $("#sachikoTemperature").val());' class="btn btn-primary col-xs-12">送出體溫資料</button>
                             </form>
@@ -254,5 +256,10 @@
             }
         }
       </script>
+      <script>
+          $(function() {
+            $( "#sachikoDatepicker" ).datepicker({dateFormat: 'yy/m/d'});
+        });
+    </script>
   </body>
 </html>
