@@ -202,10 +202,10 @@
                     <div id="app" class="tab_content"></div>
                     <div id="sachiko" class="tab_content">
                         <p>
-                            <form onSubmit = 'return send("sachiko", this.temperature.value);'>
+                            <form>
                                 本日體溫：
                                 <input type="text" name="temperature" class="form-control" id="temperature">
-                                <button type="submit" class="btn btn-primary col-xs-12">送出體溫資料</button>
+                                <button type="button" onclick = 'send("sachiko", this.form.temperature.value);' class="btn btn-primary col-xs-12">送出體溫資料</button>
                             </form>
                         </p>
                         <div id="sachikoChart"></div>
