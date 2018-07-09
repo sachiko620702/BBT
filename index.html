@@ -204,8 +204,8 @@
                         <p>
                             <form>
                                 本日體溫：
-                                <input type="text" name="melflyuTemperature" class="form-control">
-                                <button type="button" onclick = 'send("melflyu", this.form.melflyuTemperature.value);' class="btn btn-primary col-xs-12">送出體溫資料</button>
+                                <input type="text" id="melflyuTemperature" class="form-control">
+                                <button type="button" onclick = 'send("melflyu", $("#melflyuTemperature").val());' class="btn btn-primary col-xs-12">送出體溫資料</button>
                             </form>
                         </p>
                         <div id="melflyuChart"></div>
@@ -214,8 +214,8 @@
                         <p>
                             <form>
                                 本日體溫：
-                                <input type="text" name="sachikoTemperature" class="form-control">
-                                <button type="button" onclick = 'send("sachiko", this.form.sachikoTemperature.value);' class="btn btn-primary col-xs-12">送出體溫資料</button>
+                                <input type="text" id="sachikoTemperature" class="form-control">
+                                <button type="button" onclick = 'send("sachiko", $("#sachikoTemperature").val();' class="btn btn-primary col-xs-12">送出體溫資料</button>
                             </form>
                         </p>
                         <div id="sachikoChart"></div>
