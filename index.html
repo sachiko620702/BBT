@@ -200,6 +200,16 @@
          
                 <div class="tabs-container">
                     <div id="app" class="tab_content"></div>
+                    <div id="melflyu" class="tab_content">
+                        <p>
+                            <form>
+                                本日體溫：
+                                <input type="text" name="temperature" class="form-control" id="temperature">
+                                <button type="button" onclick = 'send("melflyu", this.form.temperature.value);' class="btn btn-primary col-xs-12">送出體溫資料</button>
+                            </form>
+                        </p>
+                        <div id="melflyuChart"></div>
+                    </div>
                     <div id="sachiko" class="tab_content">
                         <p>
                             <form>
@@ -210,7 +220,6 @@
                         </p>
                         <div id="sachikoChart"></div>
                     </div>
-                    <div id="melflyuChart" class="tab_content"></div>
                 </div>
             </div>
     <script src="./dist/index.js"></script>
@@ -229,7 +238,7 @@
             var data = { 
                 'name' : name,
                 'temperature':temperature,
-                'time': filltime
+                'date': filltime
             };
             if(status){
                 $.ajax({
