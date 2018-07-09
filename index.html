@@ -225,8 +225,7 @@
     <script src="./dist/index.js"></script>
     <script>
         function send(name, temperature){
-            var status = true,
-                temperature = $('#temperature').val();
+            var status = true;
             if(temperature == ''){
                 $('#temperature').css('border','1px solid #ff0000');
                 status = false;
