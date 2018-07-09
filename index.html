@@ -227,7 +227,6 @@
         function send(name, temperature){
             var status = true;
             if(temperature == ''){
-                $('#temperature').css('border','1px solid #ff0000');
                 status = false;
             }
             var currentdate = new Date(),
@@ -249,6 +248,7 @@
                     success: function (response) {
                         console.log(response);
                         alert('資料已經送出！！');
+                        location.reload();
                     }
                 });
             }
