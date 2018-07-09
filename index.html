@@ -233,10 +233,11 @@
             };
             if(status){
                 $.ajax({
-                    method: 'POST',
-                    contentType:"application/x-www-form-urlencoded",
-                    url: "https://script.googleusercontent.com/macros/echo?user_content_key=GwYzXaIuAm7ivhkMp8CiVc7RgnkCivj6bRkOG9wB2cyH8StWD4YVZQNHQQg2fXvEQ6_Dbi-Z3CDocA4abs4WwQENUgfh-jiIm5_BxDlH2jW0nuo2oDemN9CCS2h10ox_1xSncGQajx_ryfhECjZEnJ-qS1FkN1o89AG5dbbNA_2Tsa5mWiJalFSe4oXcrcnks-zcn_xTC6pA_zgmFIk-64v8SLrabKvp&lib=M8byxMDdzNl3BoXnuoQ405uf3JSpEiUC4",
+                    method: 'get',
+                    url: "https://script.google.com/macros/s/AKfycbxDKT0FPI87V-qmJrhML48PnGXewNWdgnWKiIdqKVTTCZGffcdd/exec",
                     data: data,
+                    type: "get",
+                    dataType: "JSON",
                     success: function (response) {
                         console.log(response);
                         alert('資料已經送出！！');
