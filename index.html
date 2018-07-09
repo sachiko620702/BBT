@@ -194,13 +194,20 @@
         <div class="abgne_tab">
                 <ul class="tabs">
                     <li class="tab-menu active"><a href="#app">Calendar</a></li>
-                    <li class="tab-menu"><a href="#sachikoChart">Sachiko</a></li>
+                    <li class="tab-menu"><a href="#sachiko">Sachiko</a></li>
                     <li class="tab-menu"><a href="#melflyuChart">Melflyu</a></li>
                 </ul>
          
                 <div class="tabs-container">
                     <div id="app" class="tab_content"></div>
-                    <div id="sachikoChart" class="tab_content"><input type="text" class="form-control" id="name"><input type="number" class="form-control" id="phone"><button type="button" id="sendOrder" class="btn btn-primary col-xs-12">送出訂單</button></div>
+                    <div id="sachiko" class="tab_content">
+                        <p>
+                            <input type="text" class="form-control" id="name">
+                            <input type="number" class="form-control" id="phone">
+                            <button type="button" id="sendOrder" class="btn btn-primary col-xs-12">送出訂單</button>
+                        </p>
+                        <div id="sachikoChart"></div>
+                    </div>
                     <div id="melflyuChart" class="tab_content"></div>
                 </div>
             </div>
