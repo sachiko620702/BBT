@@ -226,11 +226,11 @@
                 filltime = currentdate.getFullYear() + "/"
                     + (currentdate.getMonth() + 1) + "/"
                     + currentdate.getDate();
-            var data = Querystring.stringify({ 
+            var data = { 
                 'name' : name,
                 'temperature':temperature,
                 'time': filltime
-            });
+            };
             if(status){
                 $.ajax({
                     method: 'POST',
