@@ -182,8 +182,9 @@
                 let t = [];
                 tmp = tmp.split(", ");
                 for (j = 0; j < tmp.length; j++){
-                    console.log(tmp[j]);
+                    t[tmp[j].split(": ")[0]] = tmp[j].split(": ")[1];
                 }
+                console.log(t);
             }
         });
     </script>
