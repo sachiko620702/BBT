@@ -86,9 +86,9 @@
                 }
             }
         }
-        console.log( melflyuData);
-        console.log( sachikoData);
-        console.log( calendarData);
+        // console.log( melflyuData);
+        // console.log( sachikoData);
+        // console.log( calendarData);
         var melflyuChart = AmCharts.makeChart("melflyuChart", {
             "hideCredits":true,
             "theme": "light",
@@ -178,7 +178,12 @@
             len = data.length;
             for (i = 0; i < len; i++) {
                 let tmp = data[i].content.$t;
-                console.log(tmp);
+                // console.log(tmp);
+                let t = [];
+                tmp = tmp.split(", ");
+                for (j = 0; j < tmp.length; j++){
+                    console.log(tmp[j]);
+                }
             }
         });
     </script>
