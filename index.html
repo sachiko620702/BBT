@@ -174,21 +174,10 @@
     </script>
     <script>
         $.get("https://spreadsheets.google.com/feeds/list/1-Y5L87Ubd8na-ku4IcVCXMiqPRA6QQQeYlB9MLwaqzw/o6oilkl/public/basic?alt=json", function(result){
-            let data = result.feed.entry,
-                tmp;
-            var sachikoInfo = [],
-                melflyuInfo = [];
-
-            tmp = data[0].content.$t.split(", ");
-            for (j = 0; j < tmp.length; j++){
-                sachikoInfo[tmp[j].split(": ")[0]] = tmp[j].split(": ")[1];
-            }
-            tmp = data[1].content.$t.split(", ");
-            for (j = 0; j < tmp.length; j++){
-                melflyuInfo[tmp[j].split(": ")[0]] = tmp[j].split(": ")[1];
-            }
-            console.log(sachikoInfo);
-            console.log(melflyuInfo);
+            let data = result.feed.entry;
+            $("#melflyuInfo").html(data[1].content.$t.split(", "));
+            $("#sachikoInfo").html(data[0].content.$t.split(", "));
+            
         });
     </script>
     <script>
@@ -229,6 +218,7 @@
                                 <button type="button" onclick = 'send("melflyu", $("#melflyuTemperature").val(), $("#melflyuDatepicker").val());' class="btn btn-primary col-xs-12">送出</button>
                             </form>
                         </p>
+                        <div id="melflyuInfo"></div>
                         <div id="melflyuChart"></div>
                     </div>
                     <div id="sachiko" class="tab_content">
@@ -239,6 +229,7 @@
                                 <button type="button" onclick = 'send("sachiko", $("#sachikoTemperature").val(), $("#sachikoDatepicker").val());' class="btn btn-primary col-xs-12">送出</button>
                             </form>
                         </p>
+                        <div id="sachikoInfo"></div>
                         <div id="sachikoChart"></div>
                     </div>
                 </div>
