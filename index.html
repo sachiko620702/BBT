@@ -174,18 +174,20 @@
     </script>
     <script>
         $.get("https://spreadsheets.google.com/feeds/list/1-Y5L87Ubd8na-ku4IcVCXMiqPRA6QQQeYlB9MLwaqzw/o6oilkl/public/basic?alt=json", function(result){
-            var data = result.feed.entry,
-            len = data.length;
-            for (i = 0; i < len; i++) {
-                let tmp = data[i].content.$t;
-                // console.log(tmp);
-                let t = [];
-                tmp = tmp.split(", ");
-                for (j = 0; j < tmp.length; j++){
-                    t[tmp[j].split(": ")[0]] = tmp[j].split(": ")[1];
-                }
-                console.log(t);
+            let data = result.feed.entry,
+                tmp;
+            var sachikoInfo = [],
+                melflyuChart = [];
+
+            tmp = data[0].content.$t.split(", ");
+            for (j = 0; j < tmp.length; j++){
+                sachikoInfo[tmp[j].split(": ")[0]] = tmp[j].split(": ")[1];
             }
+            tmp = data[1].content.$t.split(", ");
+            for (j = 0; j < tmp.length; j++){
+                melflyuChart[tmp[j].split(": ")[0]] = tmp[j].split(": ")[1];
+            }
+            console.log(t);
         });
     </script>
     <script>
