@@ -176,7 +176,7 @@
         $.get("https://spreadsheets.google.com/feeds/list/1-Y5L87Ubd8na-ku4IcVCXMiqPRA6QQQeYlB9MLwaqzw/o6oilkl/public/basic?alt=json", function(result){
             let data = result.feed.entry;
             $("#melflyuInfo").html("<ul><li>" + data[1].content.$t.split(", ").join('</li><li>') + "</li></ul>");
-            $("#sachikoInfo").html(data[0].content.$t.split(", "));
+            $("#sachikoInfo").html("<ul><li>" + data[0].content.$t.split(", ").join('</li><li>') + "</li></ul>");
             
         });
     </script>
