@@ -177,7 +177,7 @@
             let data = result.feed.entry,
                 tmp;
             var sachikoInfo = [],
-                melflyuChart = [];
+                melflyuInfo = [];
 
             tmp = data[0].content.$t.split(", ");
             for (j = 0; j < tmp.length; j++){
@@ -185,9 +185,10 @@
             }
             tmp = data[1].content.$t.split(", ");
             for (j = 0; j < tmp.length; j++){
-                melflyuChart[tmp[j].split(": ")[0]] = tmp[j].split(": ")[1];
+                melflyuInfo[tmp[j].split(": ")[0]] = tmp[j].split(": ")[1];
             }
-            console.log(t);
+            console.log(sachikoInfo);
+            console.log(melflyuInfo);
         });
     </script>
     <script>
