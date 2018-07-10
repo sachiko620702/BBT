@@ -175,7 +175,7 @@
     <script>
         $.get("https://spreadsheets.google.com/feeds/list/1-Y5L87Ubd8na-ku4IcVCXMiqPRA6QQQeYlB9MLwaqzw/o6oilkl/public/basic?alt=json", function(result){
             let data = result.feed.entry;
-            $("#melflyuInfo").html(data[1].content.$t.split(", "));
+            $("#melflyuInfo").html("<ul><li>" + data[1].content.$t.split(", ").join('</li><li>') + "</li></ul>");
             $("#sachikoInfo").html(data[0].content.$t.split(", "));
             
         });
@@ -211,7 +211,6 @@
                     <div id="app" class="tab_content"></div>
                     <div id="melflyu" class="tab_content">
                         <p>
-                            {{calendarData}}
                             <form>
                                 日期：<input type="text" id="melflyuDatepicker" size="10">
                                 體溫：<input type="text" id="melflyuTemperature" size="6">
