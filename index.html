@@ -176,8 +176,10 @@
         $.get("https://spreadsheets.google.com/feeds/list/1-Y5L87Ubd8na-ku4IcVCXMiqPRA6QQQeYlB9MLwaqzw/o6oilkl/public/basic?alt=json", function(result){
             var data = result.feed.entry,
             len = data.length;
-            console.log(data);
-            console.log(len);
+            for (i = 0; i < len; i++) {
+                let tmp = data[i].content.$t;
+                console.log(tmp);
+            }
         });
     </script>
     <script>
