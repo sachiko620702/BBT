@@ -50,7 +50,13 @@
                   }
                 }
                 var calendarDate = new Date(t['_cre1l']);
-                chartDate = calendarDate.getFullYear() + "-" + (calendarDate.getMonth()+1) + "-" + calendarDate.getDate();
+                current_date = calendarDate.getDate()
+                current_date = current_date < 10 ? '0' + current_date : current_date;
+
+                current_month = (calendarDate.getMonth()+1) 
+                current_month = current_month < 10 ? '0' + current_month : current_month;
+                
+                chartDate = calendarDate.getFullYear() + "-" + current_month + "-" + current_date;
                 calendarDate = calendarDate.getFullYear() + "/" + (calendarDate.getMonth()+1) + "/" + calendarDate.getDate();
                 if (typeof t['sachiko'] != 'undefined'){
                     calendarData.push(
