@@ -50,7 +50,7 @@
                   }
                 }
                 var calendarDate = new Date(t['_cre1l']);
-                chartDate = calendarDate.toISOString().slice(0,10);
+                chartDate = calendarDate.getFullYear() + "-" + (calendarDate.getMonth()+1) + "-" + calendarDate.getDate();
                 calendarDate = calendarDate.getFullYear() + "/" + (calendarDate.getMonth()+1) + "/" + calendarDate.getDate();
                 if (typeof t['sachiko'] != 'undefined'){
                     calendarData.push(
