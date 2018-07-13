@@ -176,6 +176,14 @@
                 "minHorizontalGap": 55
             }
         } );
+        melflyuChart.addListener("rendered", zoomChart);
+        sachikoChart.addListener("rendered", zoomChart);
+        zoomChart();
+
+        function zoomChart() {
+            melflyuChart.zoomToIndexes(chartData.length - 40, chartData.length - 1);
+            sachikoChart.zoomToIndexes(chartData.length - 40, chartData.length - 1);
+        }
     }
     });
     </script>
